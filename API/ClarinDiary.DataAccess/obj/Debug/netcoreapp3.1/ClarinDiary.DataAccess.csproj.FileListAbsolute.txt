@@ -1,0 +1,10 @@
+F:\PROJECTS\NETCORE\StartClarin\ClarinDiary\ClarinDiary.DataAccess\bin\Debug\netcoreapp3.1\ClarinDiary.DataAccess.deps.json
+F:\PROJECTS\NETCORE\StartClarin\ClarinDiary\ClarinDiary.DataAccess\bin\Debug\netcoreapp3.1\ClarinDiary.DataAccess.dll
+F:\PROJECTS\NETCORE\StartClarin\ClarinDiary\ClarinDiary.DataAccess\obj\Debug\netcoreapp3.1\ClarinDiary.DataAccess.csprojAssemblyReference.cache
+F:\PROJECTS\NETCORE\StartClarin\ClarinDiary\ClarinDiary.DataAccess\obj\Debug\netcoreapp3.1\ClarinDiary.DataAccess.AssemblyInfoInputs.cache
+F:\PROJECTS\NETCORE\StartClarin\ClarinDiary\ClarinDiary.DataAccess\obj\Debug\netcoreapp3.1\ClarinDiary.DataAccess.AssemblyInfo.cs
+F:\PROJECTS\NETCORE\StartClarin\ClarinDiary\ClarinDiary.DataAccess\bin\Debug\netcoreapp3.1\ClarinDiary.DataAccess.runtimeconfig.json
+F:\PROJECTS\NETCORE\StartClarin\ClarinDiary\ClarinDiary.DataAccess\bin\Debug\netcoreapp3.1\ClarinDiary.DataAccess.runtimeconfig.dev.json
+F:\PROJECTS\NETCORE\StartClarin\ClarinDiary\ClarinDiary.DataAccess\bin\Debug\netcoreapp3.1\ClarinDiary.DataAccess.pdb
+F:\PROJECTS\NETCORE\StartClarin\ClarinDiary\ClarinDiary.DataAccess\obj\Debug\netcoreapp3.1\ClarinDiary.DataAccess.dll
+F:\PROJECTS\NETCORE\StartClarin\ClarinDiary\ClarinDiary.DataAccess\obj\Debug\netcoreapp3.1\ClarinDiary.DataAccess.pdb

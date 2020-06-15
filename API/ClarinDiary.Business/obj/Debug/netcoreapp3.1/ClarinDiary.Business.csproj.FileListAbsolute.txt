@@ -1,0 +1,11 @@
+F:\PROJECTS\NETCORE\StartClarin\ClarinDiary\ClarinDiary.Business\bin\Debug\netcoreapp3.1\ClarinDiary.Business.deps.json
+F:\PROJECTS\NETCORE\StartClarin\ClarinDiary\ClarinDiary.Business\bin\Debug\netcoreapp3.1\ClarinDiary.Business.dll
+F:\PROJECTS\NETCORE\StartClarin\ClarinDiary\ClarinDiary.Business\bin\Debug\netcoreapp3.1\ClarinDiary.Business.pdb
+F:\PROJECTS\NETCORE\StartClarin\ClarinDiary\ClarinDiary.Business\bin\Debug\netcoreapp3.1\ClarinDiary.DataAccess.dll
+F:\PROJECTS\NETCORE\StartClarin\ClarinDiary\ClarinDiary.Business\bin\Debug\netcoreapp3.1\ClarinDiary.DataAccess.pdb
+F:\PROJECTS\NETCORE\StartClarin\ClarinDiary\ClarinDiary.Business\obj\Debug\netcoreapp3.1\ClarinDiary.Business.csprojAssemblyReference.cache
+F:\PROJECTS\NETCORE\StartClarin\ClarinDiary\ClarinDiary.Business\obj\Debug\netcoreapp3.1\ClarinDiary.Business.AssemblyInfoInputs.cache
+F:\PROJECTS\NETCORE\StartClarin\ClarinDiary\ClarinDiary.Business\obj\Debug\netcoreapp3.1\ClarinDiary.Business.AssemblyInfo.cs
+F:\PROJECTS\NETCORE\StartClarin\ClarinDiary\ClarinDiary.Business\obj\Debug\netcoreapp3.1\ClarinDiary.Business.csproj.CopyComplete
+F:\PROJECTS\NETCORE\StartClarin\ClarinDiary\ClarinDiary.Business\obj\Debug\netcoreapp3.1\ClarinDiary.Business.dll
+F:\PROJECTS\NETCORE\StartClarin\ClarinDiary\ClarinDiary.Business\obj\Debug\netcoreapp3.1\ClarinDiary.Business.pdb
