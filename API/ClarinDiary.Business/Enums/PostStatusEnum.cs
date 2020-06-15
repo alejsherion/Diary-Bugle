@@ -7,10 +7,4 @@
         Approved,
         Rejected
     }
-
-    public enum RolCode
-    {
-        Writer,
-        Editor
-    }
 }

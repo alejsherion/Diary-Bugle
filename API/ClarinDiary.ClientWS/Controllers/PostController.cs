@@ -58,6 +58,17 @@ namespace ClarinDiary.ClientWS.Controllers
         public ResponseResult<IEnumerable<Post>> GetPostByWritter(Guid writerId) => _postAppService.GetPostByWritter(writerId);
 
         /// <summary>
+        /// Translate the content of a post on demand
+        /// </summary>
+        /// <param name="postId">id post</param>
+        /// <param name="langOrigin">language origin</param>
+        /// <param name="langTarget">language target</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetTraslatePost")]
+        public ResponseResult<Post> GetTraslatePost(Guid postId, string langOrigin, string langTarget) => _postAppService.GetTraslatePost(postId, langOrigin, langTarget);
+
+        /// <summary>
         /// Add a post (only writer)
         /// </summary>
         /// <param name="post">post data content</param>

@@ -49,5 +49,14 @@ namespace ClarinDiary.Business.Contract
         /// <param name="writerId"></param>
         /// <returns></returns>
         ResponseResult<IEnumerable<Post>> GetPostByWritter(Guid writerId);
+
+        /// <summary>
+        /// Translate the content of a post on demand
+        /// </summary>
+        /// <param name="postId">id post</param>
+        /// <param name="langOrigin">language origin</param>
+        /// <param name="langTarget">language target</param>
+        /// <returns></returns>
+        ResponseResult<Post> GetTraslatePost(Guid postId, string langOrigin, string langTarget);
     }
 }

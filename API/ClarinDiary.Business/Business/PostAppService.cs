@@ -162,7 +162,31 @@ namespace ClarinDiary.Business.Business
             {
                 return ResponseResult<IEnumerable<Post>>.Error(ex.Message);
             }
-        } 
+        }
+
+        /// <summary>
+        /// Translate the content of a post on demand
+        /// </summary>
+        /// <param name="postId">id post</param>
+        /// <param name="langOrigin">language origin</param>
+        /// <param name="langTarget">language target</param>
+        /// <returns></returns>
+        public ResponseResult<Post> GetTraslatePost(Guid postId, string langOrigin, string langTarget)
+        {
+            try
+            {
+                var post = PostRepository.GetById(postId);
+                if (post == null)
+                    return ResponseResult<Post>.Error("Post does not exist!.");
+
+                post.PostContent = TraslatorHelper.TraslateText(post.PostContent, langOrigin, langTarget);
+                return ResponseResult<Post>.Success(post);
+            }
+            catch (Exception ex)
+            {
+                return ResponseResult<Post>.Error(ex.Message);
+            }
+        }
         #endregion
     }
 }
