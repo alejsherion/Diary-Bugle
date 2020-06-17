@@ -1,4 +1,5 @@
 ﻿using ClarinDiary.Business.Contract;
+using ClarinDiary.Business.DTO;
 using ClarinDiary.Business.Helper;
 using ClarinDiary.DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +28,7 @@ namespace ClarinDiary.ClientWS.Controllers
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Route("GetById")]
+        [Route("Get")]
         ResponseResult<IEnumerable<Person>> Get() => _personAppService.Get();
 
         /// <summary>
@@ -37,7 +38,16 @@ namespace ClarinDiary.ClientWS.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("GetById")]
-        public ResponseResult<Person> GetById(Guid id) => _personAppService.GetById(id);
+        public ResponseResult<PersonDTO> GetById(Guid id) => _personAppService.GetById(id);
+
+        /// <summary>
+        /// Get Person based on azure user
+        /// </summary>
+        /// <param name="identification">azure user id</param>
+        /// <returns></returns>
+        [HttpGet]
+        [Route("GetByIdentification")]
+        public ResponseResult<PersonDTO> GetByIdentification(string identification) => _personAppService.GetByIdentification(identification);
 
         /// <summary>
         /// Add person

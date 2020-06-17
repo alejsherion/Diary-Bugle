@@ -15,7 +15,7 @@ namespace ClarinDiary.DataAccess.Models
         public Guid Id { get; set; }
         public string Identification { get; set; }
         public string FullName { get; set; }
-        public Guid? IdRol { get; set; }
+        public Guid IdRol { get; set; }
 
         public virtual Rol IdRolNavigation { get; set; }
         public virtual ICollection<PostComment> PostComment { get; set; }

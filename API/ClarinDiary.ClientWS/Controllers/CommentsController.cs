@@ -1,4 +1,5 @@
 ﻿using ClarinDiary.Business.Contract;
+using ClarinDiary.Business.DTO;
 using ClarinDiary.Business.Helper;
 using ClarinDiary.DataAccess.Models;
 using Microsoft.AspNetCore.Mvc;
@@ -27,7 +28,7 @@ namespace ClarinDiary.ClientWS.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("GetCommentsByPost")]
-        public ResponseResult<IEnumerable<PostComment>> GetCommentsByPost(Guid postId) => _commentsAppService.GetCommentsByPost(postId);
+        public ResponseResult<IEnumerable<PostCommentDTO>> GetCommentsByPost(Guid postId) => _commentsAppService.GetCommentsByPost(postId);
 
         /// <summary>
         /// Add a comment in a post
@@ -35,8 +36,8 @@ namespace ClarinDiary.ClientWS.Controllers
         /// <param name="postComment"></param>
         /// <returns></returns>
         [HttpPost]
-        [Route("ResponseResult")]
-        public ResponseResult<dynamic> Add(PostComment postComment) => _commentsAppService.Add(postComment);
+        [Route("Add")]
+        public ResponseResult<dynamic> Add(PostCommentDTO postComment) => _commentsAppService.Add(postComment);
 
         /// <summary>
         /// Remove a comment

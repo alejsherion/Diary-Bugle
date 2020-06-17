@@ -1,22 +1,26 @@
 ﻿using ClarinDiary.Business.Contract;
+using ClarinDiary.Business.DTO;
 using ClarinDiary.Business.Helper;
 using ClarinDiary.DataAccess.Models;
 using ClarinDiary.DataAccess.Repository;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace ClarinDiary.Business.Business
 {
-    public class PersonAppSevice: IPersonAppSevice
+    public class PersonAppSevice : IPersonAppSevice
     {
         #region Members
-        private readonly IRepository<Person> PersonRepository; 
+        private readonly IRepository<Person> PersonRepository;
+        private readonly IRepository<Rol> RolRepository;
         #endregion
 
         #region Builder
-        public PersonAppSevice(IRepository<Person> personRepository)
+        public PersonAppSevice(IRepository<Person> personRepository, IRepository<Rol> rolRepository)
         {
             PersonRepository = personRepository ?? throw new ArgumentNullException(nameof(personRepository));
+            RolRepository = rolRepository ?? throw new ArgumentNullException(nameof(RolRepository));
         }
         #endregion
 
@@ -113,17 +117,52 @@ namespace ClarinDiary.Business.Business
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public ResponseResult<Person> GetById(Guid id)
+        public ResponseResult<PersonDTO> GetById(Guid id)
         {
             try
             {
-                return ResponseResult<Person>.Success(PersonRepository.GetById(id));
+                var person = PersonRepository.GetById(id);
+                var personDTO = new PersonDTO()
+                {
+                    Id = person.Id,
+                    FullName = person.FullName,
+                    Identification = person.Identification,
+                    IdRol = person.IdRol,
+                    RolCode = RolRepository.GetById(person.IdRol).Code
+                };
+                return ResponseResult<PersonDTO>.Success(personDTO);
             }
             catch (Exception ex)
             {
-                return ResponseResult<Person>.Error(ex.Message);
+                return ResponseResult<PersonDTO>.Error(ex.Message);
             }
-        } 
+        }
+
+        /// <summary>
+        /// Get Person based on azure user
+        /// </summary>
+        /// <param name="identification">azure user id</param>
+        /// <returns></returns>
+        public ResponseResult<PersonDTO> GetByIdentification(string identification)
+        {
+            try
+            {
+                var person = PersonRepository.Get().FirstOrDefault(p => p.Identification == identification);
+                var personDTO = new PersonDTO()
+                {
+                    Id = person.Id,
+                    FullName = person.FullName,
+                    Identification = person.Identification,
+                    IdRol = person.IdRol,
+                    RolCode = RolRepository.GetById(person.IdRol).Code
+                };
+                return ResponseResult<PersonDTO>.Success(personDTO);
+            }
+            catch (Exception ex)
+            {
+                return ResponseResult<PersonDTO>.Error(ex.Message);
+            }
+        }
         #endregion
     }
 }

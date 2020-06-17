@@ -1,35 +1,37 @@
-﻿using ClarinDiary.Business.DTO;
-using Newtonsoft.Json;
-using RestSharp;
+﻿using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Net.Http;
+using System.Web;
 
 namespace ClarinDiary.Business.Helper
 {
     public static class TraslatorHelper
     {
-        private const string URL_TRANSLATE_GOOGLE_API = "https://google-translate1.p.rapidapi.com/language/translate/v2";
-        private const string BASE_API_KEY = "ddc0777517msh5a6a2cfb0517842p1aa8f3jsna25bebd9395c";
-
+        private const string URL_TRANSLATE_GOOGLE_API = "https://translate.googleapis.com/translate_a";
 
         public static string TraslateText(string contentText, string langOrigin, string langTarget)
         {
-            var client = new RestClient(URL_TRANSLATE_GOOGLE_API);
-            var request = new RestRequest(Method.POST);
-            request.AddHeader("x-rapidapi-host", "google-translate1.p.rapidapi.com");
-            request.AddHeader("x-rapidapi-key", BASE_API_KEY);
-            request.AddHeader("accept-encoding", "application/gzip");
-            request.AddHeader("content-type", "application/x-www-form-urlencoded");
-            request.AddParameter("application/x-www-form-urlencoded", $"source={langOrigin}&q={contentText}&target={langTarget}", ParameterType.RequestBody);
-            IRestResponse response = client.Execute(request);
+            var client = new HttpClient();
 
-            TranslationDataDTO translationData;
+            var _contentText = HttpUtility.UrlEncode(contentText.Replace(Environment.NewLine, " "));
+
+            using HttpResponseMessage response = client.GetAsync($"{URL_TRANSLATE_GOOGLE_API}/single?client=gtx&sl={langOrigin}&tl={langTarget}&dt=t&q={_contentText}").Result;
+            using HttpContent content = response.Content;
+            
             if (response.StatusCode != System.Net.HttpStatusCode.OK)
                 return contentText;
 
-            translationData = JsonConvert.DeserializeObject<TranslationDataDTO>(response.Content);
-            return translationData.data.translations[0].translatedText;
+            string serviceResponse = content.ReadAsStringAsync().Result;
+            var result = JsonConvert.DeserializeObject(serviceResponse);
+
+            List<string> traslationResult = new List<string>();
+            var resultList = ((result as dynamic)[0] as JArray);
+            for (int i = 0; i < resultList.Count; i++)
+                traslationResult.Add((resultList[i] as JArray)[0].ToString());
+
+            return string.Join(Environment.NewLine, traslationResult);
         }
     }
 }

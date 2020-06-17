@@ -1,4 +1,5 @@
-﻿using ClarinDiary.Business.Helper;
+﻿using ClarinDiary.Business.DTO;
+using ClarinDiary.Business.Helper;
 using ClarinDiary.DataAccess.Models;
 using System;
 using System.Collections.Generic;
@@ -39,6 +40,13 @@ namespace ClarinDiary.Business.Contract
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        ResponseResult<Person> GetById(Guid id);
+        ResponseResult<PersonDTO> GetById(Guid id);
+
+        /// <summary>
+        /// Get Person based on azure user
+        /// </summary>
+        /// <param name="identification">azure user id</param>
+        /// <returns></returns>
+        ResponseResult<PersonDTO> GetByIdentification(string identification);
     }
 }

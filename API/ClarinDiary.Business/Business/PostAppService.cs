@@ -1,4 +1,5 @@
 ﻿using ClarinDiary.Business.Contract;
+using ClarinDiary.Business.DTO;
 using ClarinDiary.Business.Enums;
 using ClarinDiary.Business.Helper;
 using ClarinDiary.DataAccess.Models;
@@ -13,12 +14,14 @@ namespace ClarinDiary.Business.Business
     {
         #region Members
         private readonly IRepository<Post> PostRepository;
+        private readonly IRepository<Person> PersonRepository;
         #endregion
 
         #region Builder
-        public PostAppService(IRepository<Post> postRepository)
+        public PostAppService(IRepository<Post> postRepository, IRepository<Person> personRepository)
         {
             PostRepository = postRepository ?? throw new ArgumentNullException(nameof(postRepository));
+            PersonRepository = personRepository ?? throw new ArgumentNullException(nameof(personRepository));
         }
         #endregion
 
@@ -28,16 +31,22 @@ namespace ClarinDiary.Business.Business
         /// </summary>
         /// <param name="post">post data content</param>
         /// <returns></returns>
-        public ResponseResult<Post> Add(Post post)
+        public ResponseResult<Post> Add(PostDTO post)
         {
             try
             {
-                post.PostDate = DateTime.Now;
-                post.State = (int)PostStatusEnum.PendingApproval;
-                post = PostRepository.Add(post);
+                var _post = new Post()
+                {
+                    PostContent = post.PostContent,
+                    PostTitle = post.PostTitle,
+                    IdAuthor = post.IdAuthor,
+                    PostDate = DateTime.Now,
+                    State = (int)PostStatusEnum.PendingApproval
+                };
+                _post = PostRepository.Add(_post);
                 PostRepository.Save();
 
-                return ResponseResult<Post>.Success(post);
+                return ResponseResult<Post>.Success(_post);
             }
             catch (Exception ex)
             {
@@ -104,20 +113,29 @@ namespace ClarinDiary.Business.Business
         /// lists the publications that are pending approval
         /// </summary>
         /// <returns></returns>
-        public ResponseResult<IEnumerable<Post>> GetPostPending()
+        public ResponseResult<IEnumerable<PostDTO>> GetPostPending()
         {
             try
             {
                 var postByWriter = PostRepository
                     .Get()
                     .Where(p => p.State == (int)PostStatusEnum.PendingApproval)
+                    .Select(p => new PostDTO()
+                    {
+                        Id = p.Id,
+                        IdAuthor = p.IdAuthor,
+                        PostContent = p.PostContent,
+                        PostTitle = p.PostTitle,
+                        PostDate = p.PostDate,
+                        Author = PersonRepository.GetById(p.IdAuthor).FullName
+                    })
                     .ToList();
 
-                return ResponseResult<IEnumerable<Post>>.Success(postByWriter);
+                return ResponseResult<IEnumerable<PostDTO>>.Success(postByWriter);
             }
             catch (Exception ex)
             {
-                return ResponseResult<IEnumerable<Post>>.Error(ex.Message);
+                return ResponseResult<IEnumerable<PostDTO>>.Error(ex.Message);
             }
         }
 
@@ -125,20 +143,30 @@ namespace ClarinDiary.Business.Business
         /// list approved publications
         /// </summary>
         /// <returns></returns>
-        public ResponseResult<IEnumerable<Post>> GetPostedOn()
+        public ResponseResult<IEnumerable<PostDTO>> GetPostedOn()
         {
             try
             {
                 var postByWriter = PostRepository
                     .Get()
                     .Where(p => p.State == (int)PostStatusEnum.Approved)
+                    .Select(p => new PostDTO()
+                    {
+                        Id = p.Id,
+                        IdAuthor = p.IdAuthor,
+                        PostContent = p.PostContent,
+                        PostTitle = p.PostTitle,
+                        PostDate = p.PostDate,
+                        Author = PersonRepository.GetById(p.IdAuthor).FullName
+                    })
+                    .OrderByDescending(p => p.PostDate)
                     .ToList();
 
-                return ResponseResult<IEnumerable<Post>>.Success(postByWriter);
+                return ResponseResult<IEnumerable<PostDTO>>.Success(postByWriter);
             }
             catch (Exception ex)
             {
-                return ResponseResult<IEnumerable<Post>>.Error(ex.Message);
+                return ResponseResult<IEnumerable<PostDTO>>.Error(ex.Message);
             }
         }
 
@@ -171,20 +199,29 @@ namespace ClarinDiary.Business.Business
         /// <param name="langOrigin">language origin</param>
         /// <param name="langTarget">language target</param>
         /// <returns></returns>
-        public ResponseResult<Post> GetTraslatePost(Guid postId, string langOrigin, string langTarget)
+        public ResponseResult<PostDTO> GetTraslatePost(Guid postId, string langOrigin, string langTarget)
         {
             try
             {
                 var post = PostRepository.GetById(postId);
                 if (post == null)
-                    return ResponseResult<Post>.Error("Post does not exist!.");
+                    return ResponseResult<PostDTO>.Error("Post does not exist!.");
 
-                post.PostContent = TraslatorHelper.TraslateText(post.PostContent, langOrigin, langTarget);
-                return ResponseResult<Post>.Success(post);
+                var postDto = new PostDTO()
+                {
+                    Id = post.Id,
+                    Author = PersonRepository.GetById(post.IdAuthor).FullName,
+                    PostDate = post.PostDate,
+                    IdAuthor = post.IdAuthor,
+                    PostTitle = TraslatorHelper.TraslateText(post.PostTitle, langOrigin, langTarget),
+                    PostContent = TraslatorHelper.TraslateText(post.PostContent, langOrigin, langTarget)
+                };
+
+                return ResponseResult<PostDTO>.Success(postDto);
             }
             catch (Exception ex)
             {
-                return ResponseResult<Post>.Error(ex.Message);
+                return ResponseResult<PostDTO>.Error(ex.Message);
             }
         }
         #endregion

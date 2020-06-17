@@ -16,6 +16,7 @@ namespace ClarinDiary.DataAccess.Models
         public DateTime PostDate { get; set; }
         public int State { get; set; }
         public string PostContent { get; set; }
+        public string PostTitle { get; set; }
 
         public virtual Person IdAuthorNavigation { get; set; }
         public virtual Person IdPublisherNavigation { get; set; }

@@ -1,4 +1,5 @@
 ﻿using ClarinDiary.Business.Contract;
+using ClarinDiary.Business.DTO;
 using ClarinDiary.Business.Enums;
 using ClarinDiary.Business.Helper;
 using ClarinDiary.DataAccess.Models;
@@ -38,7 +39,7 @@ namespace ClarinDiary.ClientWS.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("GetPostPending")]
-        public ResponseResult<IEnumerable<Post>> GetPostPending() => _postAppService.GetPostPending();
+        public ResponseResult<IEnumerable<PostDTO>> GetPostPending() => _postAppService.GetPostPending();
 
         /// <summary>
         /// list approved publications
@@ -46,7 +47,7 @@ namespace ClarinDiary.ClientWS.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("GetPostedOn")]
-        public ResponseResult<IEnumerable<Post>> GetPostedOn() => _postAppService.GetPostedOn();
+        public ResponseResult<IEnumerable<PostDTO>> GetPostedOn() => _postAppService.GetPostedOn();
 
         /// <summary>
         /// lists the posts made by a writer
@@ -66,7 +67,7 @@ namespace ClarinDiary.ClientWS.Controllers
         /// <returns></returns>
         [HttpGet]
         [Route("GetTraslatePost")]
-        public ResponseResult<Post> GetTraslatePost(Guid postId, string langOrigin, string langTarget) => _postAppService.GetTraslatePost(postId, langOrigin, langTarget);
+        public ResponseResult<PostDTO> GetTraslatePost(Guid postId, string langOrigin, string langTarget) => _postAppService.GetTraslatePost(postId, langOrigin, langTarget);
 
         /// <summary>
         /// Add a post (only writer)
@@ -75,7 +76,7 @@ namespace ClarinDiary.ClientWS.Controllers
         /// <returns></returns>
         [HttpPost]
         [Route("Add")]
-        public ResponseResult<Post> Add(Post post) => _postAppService.Add(post);
+        public ResponseResult<Post> Add(PostDTO post) => _postAppService.Add(post);
 
         /// <summary>
         /// Update a post (only writer)

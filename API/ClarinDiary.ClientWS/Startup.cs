@@ -7,9 +7,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using System;
-using System.IO;
-using System.Reflection;
 
 namespace ClarinDiary.ClientWS
 {
@@ -43,12 +40,6 @@ namespace ClarinDiary.ClientWS
                     o.AllowAnyOrigin();
                 });
             });
-            //services.AddMvc(options => options.EnableEndpointRouting = false)
-            //        .AddNewtonsoftJson(options => {
-            //    options.SerializerSettings.Formatting = Newtonsoft.Json.Formatting.Indented;
-            //    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-            //})
-            //.SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
 
             services.AddSwaggerGen(c =>
             {

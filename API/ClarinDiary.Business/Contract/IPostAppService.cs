@@ -1,4 +1,5 @@
-﻿using ClarinDiary.Business.Enums;
+﻿using ClarinDiary.Business.DTO;
+using ClarinDiary.Business.Enums;
 using ClarinDiary.Business.Helper;
 using ClarinDiary.DataAccess.Models;
 using System;
@@ -13,7 +14,7 @@ namespace ClarinDiary.Business.Contract
         /// </summary>
         /// <param name="post">post data content</param>
         /// <returns></returns>
-        ResponseResult<Post> Add(Post post);
+        ResponseResult<Post> Add(PostDTO post);
 
         /// <summary>
         /// Update a post (only writer)
@@ -35,13 +36,13 @@ namespace ClarinDiary.Business.Contract
         /// lists the publications that are pending approval
         /// </summary>
         /// <returns></returns>
-        ResponseResult<IEnumerable<Post>> GetPostPending();
+        ResponseResult<IEnumerable<PostDTO>> GetPostPending();
 
         /// <summary>
         /// list approved publications
         /// </summary>
         /// <returns></returns>
-        ResponseResult<IEnumerable<Post>> GetPostedOn();
+        ResponseResult<IEnumerable<PostDTO>> GetPostedOn();
 
         /// <summary>
         /// lists the posts made by a writer
@@ -57,6 +58,6 @@ namespace ClarinDiary.Business.Contract
         /// <param name="langOrigin">language origin</param>
         /// <param name="langTarget">language target</param>
         /// <returns></returns>
-        ResponseResult<Post> GetTraslatePost(Guid postId, string langOrigin, string langTarget);
+        ResponseResult<PostDTO> GetTraslatePost(Guid postId, string langOrigin, string langTarget);
     }
 }

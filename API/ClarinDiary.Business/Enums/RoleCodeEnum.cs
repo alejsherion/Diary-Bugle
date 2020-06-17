@@ -2,6 +2,7 @@
 {
     public enum RoleCodeEnum
     {
+        Admin,
         Writer,
         Editor
     }

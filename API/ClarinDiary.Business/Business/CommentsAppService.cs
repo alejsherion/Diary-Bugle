@@ -1,4 +1,5 @@
 ﻿using ClarinDiary.Business.Contract;
+using ClarinDiary.Business.DTO;
 using ClarinDiary.Business.Helper;
 using ClarinDiary.DataAccess.Models;
 using ClarinDiary.DataAccess.Repository;
@@ -12,13 +13,15 @@ namespace ClarinDiary.Business.Business
     public class CommentsAppService: ICommentsAppService
     {
         #region Members
-        private readonly IRepository<PostComment> CommentRepository; 
+        private readonly IRepository<PostComment> CommentRepository;
+        private readonly IRepository<Person> PersonRepository;
         #endregion
 
         #region Builder
-        public CommentsAppService(IRepository<PostComment> commentRepository)
+        public CommentsAppService(IRepository<PostComment> commentRepository, IRepository<Person> personRepository)
         {
             CommentRepository = commentRepository ?? throw new ArgumentNullException(nameof(commentRepository));
+            PersonRepository = personRepository ?? throw new ArgumentNullException(nameof(personRepository));
         } 
         #endregion
 
@@ -28,11 +31,17 @@ namespace ClarinDiary.Business.Business
         /// </summary>
         /// <param name="postComment"></param>
         /// <returns></returns>
-        public ResponseResult<dynamic> Add(PostComment postComment)
+        public ResponseResult<dynamic> Add(PostCommentDTO postComment)
         {
             try
             {
-                postComment = CommentRepository.Add(postComment);
+                var comment = new PostComment()
+                {
+                    IdPerson = postComment.IdPerson,
+                    Comment = postComment.Comment,
+                    IdPost = postComment.IdPost
+                };
+                comment = CommentRepository.Add(comment);
                 CommentRepository.Save();
 
                 return ResponseResult<dynamic>.Success(postComment);
@@ -69,20 +78,28 @@ namespace ClarinDiary.Business.Business
         /// </summary>
         /// <param name="postId"></param>
         /// <returns></returns>
-        public ResponseResult<IEnumerable<PostComment>> GetCommentsByPost(Guid postId)
+        public ResponseResult<IEnumerable<PostCommentDTO>> GetCommentsByPost(Guid postId)
         {
             try
             {
                 var commentsByPost = CommentRepository
                     .Get()
                     .Where(c => c.IdPost == postId)
+                    .Select(c => new PostCommentDTO()
+                    {
+                        Id = c.Id,
+                        IdPerson = c.IdPerson,
+                        Comment = c.Comment,
+                        IdPost = c.IdPost,
+                        Author = c.IdPerson != null ? PersonRepository.GetById((Guid)c.IdPerson).FullName : "Anonymus"
+                    })
                     .ToList();
 
-                return ResponseResult<IEnumerable<PostComment>>.Success(commentsByPost);
+                return ResponseResult<IEnumerable<PostCommentDTO>>.Success(commentsByPost);
             }
             catch (Exception ex)
             {
-                return ResponseResult<IEnumerable<PostComment>>.Error(ex.Message);
+                return ResponseResult<IEnumerable<PostCommentDTO>>.Error(ex.Message);
             }
         } 
         #endregion

@@ -1,4 +1,5 @@
-﻿using ClarinDiary.Business.Helper;
+﻿using ClarinDiary.Business.DTO;
+using ClarinDiary.Business.Helper;
 using ClarinDiary.DataAccess.Models;
 using System;
 using System.Collections.Generic;
@@ -12,7 +13,7 @@ namespace ClarinDiary.Business.Contract
         /// </summary>
         /// <param name="postComment"></param>
         /// <returns></returns>
-        ResponseResult<dynamic> Add(PostComment postComment);
+        ResponseResult<dynamic> Add(PostCommentDTO postComment);
 
         /// <summary>
         /// Remove a comment
@@ -26,6 +27,6 @@ namespace ClarinDiary.Business.Contract
         /// </summary>
         /// <param name="postId"></param>
         /// <returns></returns>
-        ResponseResult<IEnumerable<PostComment>> GetCommentsByPost(Guid postId);
+        ResponseResult<IEnumerable<PostCommentDTO>> GetCommentsByPost(Guid postId);
     }
 }

@@ -30,13 +30,15 @@ namespace ClarinDiary.DataAccess.Models
                     .IsUnicode(false)
                     .HasComment("User full name");
 
-                entity.Property(e => e.IdRol).HasComment("Rol represents in the aplication");
+                entity.Property(e => e.IdRol)
+                    .IsRequired()
+                    .HasComment("Rol represents in the aplication");
 
                 entity.Property(e => e.Identification)
                     .IsRequired()
-                    .HasMaxLength(40)
+                    .HasMaxLength(150)
                     .IsUnicode(false)
-                    .HasComment("User identification");
+                    .HasComment("User name referen to Azure user");
 
                 entity.HasOne(d => d.IdRolNavigation)
                     .WithMany(p => p.Person)
@@ -58,6 +60,12 @@ namespace ClarinDiary.DataAccess.Models
                     .IsRequired()
                     .IsUnicode(false)
                     .HasComment("Post Content");
+                
+                entity.Property(e => e.PostTitle)
+                    .IsRequired()
+                    .IsUnicode(false)
+                    .HasMaxLength(100)
+                    .HasComment("Post Title");
 
                 entity.Property(e => e.PostDate)
                     .HasColumnType("datetime")
