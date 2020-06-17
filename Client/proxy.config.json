@@ -1,0 +1,7 @@
+{
+    "/api/*": {
+        "target": "https://clarindiary-ws.azurewebsites.net/",
+        "secure": false,
+        "chageOrigin": true
+    }
+}

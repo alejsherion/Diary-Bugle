@@ -1,0 +1,11 @@
+<div class="main">
+    <button id="showLeft" routerLink="timeline" routerLinkActive="active">Home</button>
+    <section *ngIf="signedPerson.rolCode === '2' || signedPerson.rolCode === '0'">
+        <h2>Editor Menu</h2>
+        <button id="showLeft" routerLink="editor" routerLinkActive="active">Pending approval</button>
+    </section>
+    <section class="buttonset" *ngIf="signedPerson.rolCode === '1' || signedPerson.rolCode === '0'">
+        <h2>Writer Menu</h2>
+        <button id="showLeftPush" routerLink="writer" routerLinkActive="active">New post</button>
+    </section>
+</div>

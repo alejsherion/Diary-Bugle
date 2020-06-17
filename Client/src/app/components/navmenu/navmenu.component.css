@@ -1,0 +1,19 @@
+.main{
+    font-family: 'Lato', Calibri, Arial, sans-serif;
+}
+
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    width: 100%;
+    height: 60px;
+    cursor: pointer;
+}
+
+h2 {
+    color: #ccc;
+    font-weight: 300;
+    text-align: center;
+    font-family: 'Lato', Calibri, Arial, sans-serif;
+}

@@ -1,0 +1,13 @@
+<div class="container">
+    <form (submit)="onSubmit()">
+        <button class="btn btn-success" type="submit">Save Post</button>
+        <div class="form-group">
+            <label for="titleFormControlInput">Title</label>
+            <input [(ngModel)]="postTitle" name="postTitle" type="text" class="form-control" id="titleFormControlInput" placeholder="Title" >
+        </div>
+        <div class="form-group">
+            <label for="exampleFormControlTextarea1">Post Content</label>
+            <textarea [(ngModel)]="postContent" name="postContent" class="form-control" id="exampleFormControlTextarea1" rows="5"></textarea>
+        </div>
+    </form>
+</div>
